@@ -3,9 +3,9 @@ package com.example.onlineshopping.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.CONFLICT)
-public class UserExistException extends RuntimeException {
-    public UserExistException(String message) {
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ObjectNotFoundException extends RuntimeException{
+    public ObjectNotFoundException(String message) {
         super(message);
     }
 }

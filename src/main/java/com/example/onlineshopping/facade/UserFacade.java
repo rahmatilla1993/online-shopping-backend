@@ -1,16 +1,17 @@
 package com.example.onlineshopping.facade;
 
-import com.example.onlineshopping.enums.RoleName;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
 @Builder
+@Data
 public class UserFacade {
     private String firstName;
     private String lastName;
     private String username;
     private String imageUrl;
-    private List<RoleName> roles;
+    private List<String> roles;
     private String status;
 }

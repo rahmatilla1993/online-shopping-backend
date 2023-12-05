@@ -2,7 +2,7 @@ package com.example.onlineshopping.controller;
 
 import com.example.onlineshopping.dto.LoginDto;
 import com.example.onlineshopping.dto.RegisterDto;
-import com.example.onlineshopping.exception.UserExistException;
+import com.example.onlineshopping.exception.UserAlreadyExistsException;
 import com.example.onlineshopping.response.ApiResponse;
 import com.example.onlineshopping.service.AuthService;
 import com.example.onlineshopping.validation.ResponseErrorValidation;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +59,15 @@ public class AuthController {
         return ResponseEntity
                 .ok(authService.login(loginDto));
     }
+    @ExceptionHandler
+    public HttpEntity<ApiResponse> handleExistsException(UsernameNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ApiResponse(e.getMessage(), false));
+    }
 
     @ExceptionHandler
-    public HttpEntity<ApiResponse> handleExistsException(UserExistException e) {
+    public HttpEntity<ApiResponse> handleExistsException(UserAlreadyExistsException e) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ApiResponse(e.getMessage(), false));
