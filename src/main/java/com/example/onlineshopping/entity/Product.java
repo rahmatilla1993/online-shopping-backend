@@ -1,9 +1,6 @@
 package com.example.onlineshopping.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedBy;
@@ -12,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -24,7 +22,15 @@ public class Product extends BaseEntity {
 
     private String description;
 
-    private String imageUrl;
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(
+            name = "product_images",
+            joinColumns = {@JoinColumn(
+                    name = "product_id",
+                    referencedColumnName = "id"
+            )}
+    )
+    private List<String> imageUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate validateDate;

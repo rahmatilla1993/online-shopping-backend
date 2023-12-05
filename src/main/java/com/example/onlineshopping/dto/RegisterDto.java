@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @PasswordMatches
-public class UserDto {
+public class RegisterDto {
 
     @NotEmpty(message = "Firstname should not be empty")
     private String firstName;
