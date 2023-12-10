@@ -30,7 +30,7 @@ public class Product extends BaseEntity {
                     referencedColumnName = "id"
             )}
     )
-    private List<String> imageUrl;
+    private List<String> imageUrls;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate validateDate;
